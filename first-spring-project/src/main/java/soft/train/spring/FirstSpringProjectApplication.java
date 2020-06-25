@@ -16,14 +16,18 @@ import javax.annotation.PreDestroy;
 @SpringBootApplication
 public class FirstSpringProjectApplication implements ApplicationRunner {
 
-    @Autowired private MyFirstObj mObj;
-    @Autowired private MyFirstObj mObj2;
-    @Autowired MyFirstObj mObj3;
-    @Autowired protected MyFirstObj mObj4;
+    @Autowired
+    protected MyFirstObj mObj4;
     protected MyFirstObj mObj5;
     protected MyFirstObj mObj6;
-
-    @Autowired ApplicationContext ac;
+    @Autowired
+    MyFirstObj mObj3;
+    @Autowired
+    ApplicationContext ac;
+    @Autowired
+    private MyFirstObj mObj;
+    @Autowired
+    private MyFirstObj mObj2;
     @Autowired
     //@Qualifier("myImpl1")
     private IMyIntf myImpl1;
@@ -40,48 +44,49 @@ public class FirstSpringProjectApplication implements ApplicationRunner {
     @Qualifier("myUvf")
     private IMyIntf myImp3;
 
-    public String process(){
-        return myImpl1.greet(mObj.getName());
-    }
-
-    @Override public void run(final ApplicationArguments args) throws Exception {
-        mObj3.setName("osman");
-        String str = process();
-        System.out.println(str);
-        IMyIntf im = (IMyIntf) ac.getBean("myImpl1");
-
-    }
-
     @Autowired
-    public FirstSpringProjectApplication(MyFirstObj mObj5) {
+    public FirstSpringProjectApplication(final MyFirstObj mObj5) {
         this.mObj5 = mObj5;
     }
 
-    @Autowired
-    public void xyz(MyFirstObj mObj6){
-        this.mObj6 = mObj6;
-    }
-
-   @PostConstruct
-   public void init(){
-       String mObjNameLoc = mObj.getName();
-   }
-
-   @PreDestroy
-   public void destroy(){
-
-   }
-
-
-    public static void main(String[] args) {
-        ConfigurableApplicationContext runLoc = SpringApplication.run(FirstSpringProjectApplication.class, args);
-        FirstSpringProjectApplication beanLoc = runLoc.getBean(FirstSpringProjectApplication.class);
-        String mObjNameLoc = beanLoc.mObj.getName();
+    public static void main(final String[] args) {
+        final ConfigurableApplicationContext runLoc = SpringApplication.run(FirstSpringProjectApplication.class,
+                                                                            args);
+        final FirstSpringProjectApplication beanLoc = runLoc.getBean(FirstSpringProjectApplication.class);
+        final String mObjNameLoc = beanLoc.mObj.getName();
 
         // MyFirstObj a = new MyFirstObj();
         // Yanlış
         //		FirstSpringProjectApplication fs = new FirstSpringProjectApplication();
         //		String nameLoc = fs.mObj.getName();
+    }
+
+    public String process() {
+        return this.myImpl1.greet(this.mObj.getName());
+    }
+
+    @Override
+    public void run(final ApplicationArguments args) throws Exception {
+        this.mObj3.setName("osman");
+        final String str = this.process();
+        System.out.println(str);
+        final IMyIntf im = (IMyIntf) this.ac.getBean("myImpl1");
+
+    }
+
+    @Autowired
+    public void xyz(final MyFirstObj mObj6) {
+        this.mObj6 = mObj6;
+    }
+
+    @PostConstruct
+    public void init() {
+        final String mObjNameLoc = this.mObj.getName();
+    }
+
+    @PreDestroy
+    public void destroy() {
+
     }
 
 }
