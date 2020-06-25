@@ -12,6 +12,7 @@ import java.util.Objects;
 @XmlRootElement
 public class Person {
 
+    private long   id;
     @NotEmpty(message = "Person name should not be empty.")
     @Size(min = 2,
           max = 30,
@@ -73,5 +74,14 @@ public class Person {
         return Objects.hash(this.name,
                             this.surname,
                             this.age);
+    }
+
+
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(final long idParam) {
+        this.id = idParam;
     }
 }
