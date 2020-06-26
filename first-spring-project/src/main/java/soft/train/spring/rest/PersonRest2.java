@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import soft.train.spring.rest.core.PersonManager;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/person/management/v1")
 public class PersonRest2 {
@@ -13,6 +15,15 @@ public class PersonRest2 {
 
     @PostMapping("/provison")
     public String provison(@RequestBody final Person person) {
+        person.getDepartment()
+              .setPerson(person);
+        final List<Address> addressesLoc = person.getAddresses();
+        if (addressesLoc != null) {
+            for (final Address a : addressesLoc) {
+                a.setPerson(person);
+            }
+        }
+
         this.personManager.provision(person);
         return "OK";
     }

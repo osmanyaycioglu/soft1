@@ -2,18 +2,18 @@ package soft.train.spring.rest;
 
 import soft.train.spring.rest.validation.MyCheck;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 import java.util.Objects;
 
 @XmlRootElement
 @Entity
+@SecondaryTable(name = "person_date")
 public class Person {
 
     @Id
@@ -32,6 +32,32 @@ public class Person {
     @Min(18)
     @Max(120)
     private int    age;
+
+    @Column(table = "person_date")
+    private long createDate;
+    @Column(table = "person_date")
+    private long startDate;
+
+    @Embedded
+    private PersonExtra personExtra;
+
+    @OneToOne(fetch = FetchType.EAGER,
+              cascade = { CascadeType.ALL },
+              mappedBy = "person")
+    private Department department;
+
+    @OneToMany(fetch = FetchType.EAGER,
+               cascade = { CascadeType.ALL },
+               mappedBy = "person")
+    private List<Address> addresses;
+
+    public PersonExtra getPersonExtra() {
+        return this.personExtra;
+    }
+
+    public void setPersonExtra(final PersonExtra personExtraParam) {
+        this.personExtra = personExtraParam;
+    }
 
     public String getName() {
         return this.name;
@@ -90,5 +116,37 @@ public class Person {
 
     public void setId(final long idParam) {
         this.id = idParam;
+    }
+
+    public long getCreateDate() {
+        return this.createDate;
+    }
+
+    public void setCreateDate(final long createDateParam) {
+        this.createDate = createDateParam;
+    }
+
+    public long getStartDate() {
+        return this.startDate;
+    }
+
+    public void setStartDate(final long startDateParam) {
+        this.startDate = startDateParam;
+    }
+
+    public Department getDepartment() {
+        return this.department;
+    }
+
+    public void setDepartment(final Department departmentParam) {
+        this.department = departmentParam;
+    }
+
+    public List<Address> getAddresses() {
+        return this.addresses;
+    }
+
+    public void setAddresses(final List<Address> addressesParam) {
+        this.addresses = addressesParam;
     }
 }
