@@ -3,7 +3,10 @@ package soft.train.spring.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
+import soft.train.spring.rest.core.PersonManager;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.SynchronizationType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +27,9 @@ public class PersonRest2V2 {
     @Autowired
     private PersonRest2 rest2;
 
+    @Autowired
+    private PersonManager personManager;
+
     @PostMapping("/insert")
     public String provison(final Person person) {
         this.personMap.put(person.getId(),
@@ -40,6 +46,8 @@ public class PersonRest2V2 {
     @GetMapping("/getall")
     public List<Person> getAll() {
         final List<Person> pl = new ArrayList<>(this.personMap.values());
+        EntityManagerFactory entityManagerFactory;
+        SynchronizationType synchronizationType;
         return pl;
     }
 

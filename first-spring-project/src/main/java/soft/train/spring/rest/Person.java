@@ -2,6 +2,9 @@ package soft.train.spring.rest;
 
 import soft.train.spring.rest.validation.MyCheck;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -10,9 +13,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 @XmlRootElement
+@Entity
 public class Person {
 
-    private long   id;
+    @Id
+    @GeneratedValue
+    private long id;
+
     @NotEmpty(message = "Person name should not be empty.")
     @Size(min = 2,
           max = 30,
