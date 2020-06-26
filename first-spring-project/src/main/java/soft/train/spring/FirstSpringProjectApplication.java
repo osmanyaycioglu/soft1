@@ -21,7 +21,7 @@ public class FirstSpringProjectApplication implements ApplicationRunner {
     protected MyFirstObj mObj5;
     protected MyFirstObj mObj6;
     @Autowired
-    MyFirstObj mObj3;
+    MyFirstObj         mObj3;
     @Autowired
     ApplicationContext ac;
     @Autowired
@@ -30,7 +30,7 @@ public class FirstSpringProjectApplication implements ApplicationRunner {
     private MyFirstObj mObj2;
     @Autowired
     //@Qualifier("myImpl1")
-    private IMyIntf myImpl1;
+    private IMyIntf    myImpl1;
 
     @Autowired
     @Qualifier("osman")

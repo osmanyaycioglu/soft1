@@ -9,10 +9,8 @@ public class MyCustomRepositoryProxy extends MyCustomRepository {
     }
 
     @Override
-    public void xyz() {
-
-        this.mcr.xyz();
-
+    public void xyz(final Person per) {
+        this.mcr.xyz(per);
     }
 
 }

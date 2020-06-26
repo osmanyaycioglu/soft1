@@ -1,5 +1,6 @@
 package soft.train.spring.rest;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import soft.train.spring.rest.validation.MyCheck;
 
 import javax.persistence.*;
@@ -14,6 +15,8 @@ import java.util.Objects;
 @XmlRootElement
 @Entity
 @SecondaryTable(name = "person_date")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cacheable
 public class Person {
 
     @Id
