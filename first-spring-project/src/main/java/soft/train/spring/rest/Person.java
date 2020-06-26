@@ -51,6 +51,9 @@ public class Person {
                mappedBy = "person")
     private List<Address> addresses;
 
+    @Version
+    private int ver;
+
     public PersonExtra getPersonExtra() {
         return this.personExtra;
     }
