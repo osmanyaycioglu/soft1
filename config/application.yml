@@ -9,9 +9,18 @@ eureka:
     healthcheck:
       enabled: true
     fetch-registry: true
+  instance:
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 20
+    lease-renewal-interval-in-seconds: 10
+  server:
+    eviction-interval-timer-in-ms: 60000
+    renewal-threshold-update-interval-ms: 60000
+    enable-self-preservation: false
+
 info:
   app:
-    name: ${project.name:@project.artifactId@}
+    name: ${@project.artifactId@}
     artifact: '@project.artifactId@'
     version: '@project.version@'
     port: ${server.port}
