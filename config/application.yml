@@ -11,7 +11,7 @@ eureka:
     fetch-registry: true
 info:
   app:
-    name: '@project.name@'
+    name: ${project.name}
     artifact: '@project.artifactId@'
     version: '@project.version@'
     port: ${server.port}
