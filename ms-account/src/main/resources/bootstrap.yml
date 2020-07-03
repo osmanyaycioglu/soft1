@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: account
+  cloud:
+    config:
+      uri:
+        - ${config.server:http://127.0.0.1:8888}
+server:
+  port: ${PORT:11000}
