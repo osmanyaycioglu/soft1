@@ -7,3 +7,12 @@ spring:
         - ${config.server}
 server:
   port: 5555
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 90
+    lease-renewal-interval-in-seconds: 60
+  server:
+    eviction-interval-timer-in-ms: 60000
+    renewal-percent-threshold: 0.8
+    renewal-threshold-update-interval-ms: 60000
