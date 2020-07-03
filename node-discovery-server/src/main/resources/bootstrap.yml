@@ -1,3 +1,9 @@
 spring:
   application:
     name: discovery
+  cloud:
+    config:
+      uri:
+        - ${config.server}
+server:
+  port: 5555
