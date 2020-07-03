@@ -1,0 +1,17 @@
+logging:
+  pattern:
+    console: "%6relative [%12.12thread] %clr(%5p) %msg%n"
+eureka:
+  client:
+    service-url:
+      defaultZone: ${discovery.server:http://127.0.0.1:5555/eureka/}
+    register-with-eureka: true
+    healthcheck:
+      enabled: true
+    fetch-registry: true
+info:
+  app:
+    name: "@project.name@"
+    artifact: "@project.artifactId@"
+    version: "@project.version@"
+    port: ${server.port}
