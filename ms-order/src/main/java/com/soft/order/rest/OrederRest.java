@@ -12,10 +12,12 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/order")
@@ -37,12 +39,17 @@ public class OrederRest {
 
     private int counter = 0;
 
+    @Autowired
+    private KafkaTemplate kt;
+
     @HystrixCommand(fallbackMethod = "testFallback",
                     commandProperties = @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",
                                                          value = "500"))
     @GetMapping("/test")
     public String test() {
-
+        Random randomLoc = new Random();
+        String str = "hello world test " + randomLoc.nextInt(100_000);
+        kt.send("xyzTopic",str );
         counter++;
         if (counter % 3 == 0) {
             throw new IllegalStateException();
