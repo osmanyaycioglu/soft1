@@ -9,6 +9,6 @@ spring:
         git:
           uri: ${git.dir}
           search-paths:
-            - config
+            - softconf/config
 encrypt:
   key: osmankey1

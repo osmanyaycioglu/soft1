@@ -29,7 +29,7 @@ public class OrederRest {
     private RestTemplate directRT;
 
     @Autowired
-    private EurekaC     lient ec;
+    private EurekaClient ec;
 
     @Autowired
     private IAccountClient accountClient;
