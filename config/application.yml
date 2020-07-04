@@ -24,3 +24,20 @@ info:
     artifact: '@project.artifactId@'
     version: '@project.version@'
     port: ${server.port}
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers:
+        - 127.0.0.1:9092
+      group-id: myGroup
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest
+    producer:
+      bootstrap-servers:
+        - 127.0.0.1:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+my:
+  pass: {cipher}f36fd912e97615ba7f5332cd1bd7059cf332495ecc66716ff18d2a4e4576e8b1
