@@ -40,4 +40,4 @@ spring:
       value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
 my:
   prop:
-    name: osman
+    name: mehmet
