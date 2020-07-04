@@ -1,0 +1,17 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: ${discovery.server}
+    register-with-eureka: false
+    healthcheck:
+      enabled: true
+    fetch-registry: true
+zuul:
+  routes:
+    order:
+      url: ORDER
+      path: /o/**
+    account:
+      url: ACCOUNT
+      path: /a/**
+  sensitive-headers: Cookie,Cookie-Set

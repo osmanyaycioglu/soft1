@@ -8,10 +8,7 @@ import com.soft.order.clients.IAccountClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -33,6 +30,11 @@ public class OrederRest {
 
     @Autowired
     private IAccountClient accountClient;
+
+    @GetMapping("/test")
+    public String test() {
+        return "Test OK";
+    }
 
     @PostMapping("/meal")
     public String orderMeal(@RequestBody Order order) {
