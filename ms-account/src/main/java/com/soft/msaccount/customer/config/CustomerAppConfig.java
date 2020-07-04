@@ -15,8 +15,8 @@ import org.springframework.context.annotation.Import;
 public class CustomerAppConfig {
 
 
-    @Value("${customer.dao.impl}")
-    private int implChooser;
+    // @Value("${customer.dao.impl}")
+    private int implChooser = 1;
 
 
     @Bean

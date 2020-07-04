@@ -38,3 +38,6 @@ spring:
         - 127.0.0.1:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+my:
+  prop:
+    name: osman
