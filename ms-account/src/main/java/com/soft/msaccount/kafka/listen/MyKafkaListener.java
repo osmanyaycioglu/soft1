@@ -1,5 +1,6 @@
 package com.soft.msaccount.kafka.listen;
 
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.annotation.TopicPartition;
 import org.springframework.messaging.handler.annotation.SendTo;

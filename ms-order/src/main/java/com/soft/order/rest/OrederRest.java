@@ -11,6 +11,8 @@ import com.soft.order.clients.IAccountClient;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,7 @@ import java.util.Random;
 
 @RestController
 @RequestMapping("/order")
+@RefreshScope
 public class OrederRest {
 
     @Autowired
@@ -42,6 +45,9 @@ public class OrederRest {
     @Autowired
     private KafkaTemplate kt;
 
+    @Value("${my.prop.name}")
+    private String myName;
+
     @HystrixCommand(fallbackMethod = "testFallback",
                     commandProperties = @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",
                                                          value = "500"))
@@ -62,12 +68,12 @@ public class OrederRest {
             }
         }
 
-        return "Test OK";
+        return "Test OK " + myName;
     }
 
 
     public String testFallback() {
-        return "Fallback Test OK";
+        return "Fallback Test OK " + myName;
     }
 
     @PostMapping("/meal")
