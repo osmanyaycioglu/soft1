@@ -8,13 +8,17 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.ribbon.proxy.annotation.Hystrix;
 import com.soft.order.Order;
 import com.soft.order.clients.IAccountClient;
+import com.soft.order.event.MyRemoteEvent;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.bus.SpringCloudBusClient;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
+import org.springframework.context.ApplicationContext;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -48,6 +52,12 @@ public class OrederRest {
     @Value("${my.prop.name}")
     private String myName;
 
+    @Autowired
+    private SpringCloudBusClient scc;
+
+    @Autowired
+    private ApplicationContext ap;
+
     @HystrixCommand(fallbackMethod = "testFallback",
                     commandProperties = @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",
                                                          value = "500"))
@@ -55,15 +65,21 @@ public class OrederRest {
     public String test() {
         Random randomLoc = new Random();
         String str = "hello world test " + randomLoc.nextInt(100_000);
-        kt.send("xyzTopic",str );
+        kt.send("xyzTopic",
+                str);
+//        MyRemoteEvent myRemoteEventLoc = new MyRemoteEvent("test  " + randomLoc.nextInt(),
+//                                                           this,
+//                                                           ap.getId());
+//        scc.springCloudBusOutput()
+//           .send(MessageBuilder.withPayload(myRemoteEventLoc).build());
         counter++;
         if (counter % 3 == 0) {
             throw new IllegalStateException();
         }
-        if (counter % 5== 0) {
+        if (counter % 5 == 0) {
             try {
                 Thread.sleep(1_000);
-            }catch (Exception ex){
+            } catch (Exception ex) {
 
             }
         }
